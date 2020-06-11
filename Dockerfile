@@ -6,9 +6,9 @@ RUN set -ex \
  \
  && apk add --no-cache --virtual .fetch-deps \
     python3 \
-    python3-pip \
+    python3-dev \
  && pip3 install --no-cache-dir --upgrade pip
- 
+
 ADD templates /opt/templates
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
