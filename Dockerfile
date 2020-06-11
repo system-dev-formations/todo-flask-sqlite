@@ -6,6 +6,7 @@ RUN set -ex \
  && apk add --no-cache --virtual .fetch-deps \
     python3 \
     python3-dev \
+    curl \
  && pip3 install --no-cache-dir --upgrade pip
 
 ADD templates /opt/templates

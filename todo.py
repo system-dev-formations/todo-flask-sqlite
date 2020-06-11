@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_pyfile('todo.cfg')
+app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
 
