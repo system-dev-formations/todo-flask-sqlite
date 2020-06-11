@@ -46,11 +46,16 @@ RUN set -ex \
  	util-linux-dev \
  	zlib-dev \
  	icu-dev \
+ 	readline-dev \
     \
   && cd /usr/src/sqlite3/sqlite-amalgamation-3320200 \
-  && gcc shell.c sqlite3.c -lpthread -ldl \
+  && gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_FTS4 \
+                 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 \
+                 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_EXPLAIN_COMMENTS \
+                 -DHAVE_USLEEP -DHAVE_READLINE \
+     shell.c sqlite3.c -lpthread -ldl -lreadline -lncurses -o sqlite3 \
   && mkdir -p /opt/sqlite \
-  && mv a.out /opt/sqlite/sqlite3 \
+  && mv sqlite3 /opt/sqlite/ \
   && apk del .fetch-deps .build-deps
 
 VOLUME ["/opt/sqlite"]
