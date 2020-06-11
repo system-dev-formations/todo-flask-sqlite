@@ -31,7 +31,8 @@ docker build -t todo-sql .
 ```
 
 ## Launch the container application 
-docker run -d  --name todo --link db:sqlite  -v /opt/data:/opt/data todo-sql
+docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/data:/opt/data todo-sql
+
  
 ## How to set up the database file
 ``` 
