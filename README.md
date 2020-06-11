@@ -17,27 +17,27 @@ git clone https://github.com/<my_repo>/todo-flask-sqlite
 ```shell script
   docker volume create sqlite_dir
 ```
-## Launch the docker sqlite3 container
+## Launch the docker sqlite3 container, and tail on an empty file
 ```shell script
-  docker run -d --name db -v sqlite_dir:/opt/sqlite sqlite3  
+  docker run -d --name db -v sqlite_dir:/opt/sqlite sqlite3 tail -f /dev/null 
+```
+
+Get this repository  
+```git clone https://github.com/system-dev-formations/todo-flask-mysql.git```  
+Build todo-sql image  
+```shell script
+cd todo-flask-sqlite  
+docker build -t todo-sql . 
 ```
 
 ## Launch the container application 
-docker run -d  --name todo --link db:sqlite \
+docker run -d  --name todo --link db:sqlite  -v /opt/data:/opt/data todo-sql
+ 
+## How to set up the database file
+``` 
  
 
-
-
-
-## How to set up the environment platform
-Start a Sqlite database container   
-```shell script
-docker run -d --name sqlite  \
--v /var/log/sqlite:/var/log/sqlite
-```
-In your Goland Intellij IDE set a connection to the sqlite database   
-create a database named ```tododb```      
-and run the script ./sql/todos.sql   
+```   
 
 Launch a PhpMyAdmin container connected to MySQL database
 ```shell script
@@ -50,10 +50,7 @@ Build todo-sql image
 ```cd todo-flask-mysql```  
 ```docker build -t todo-sql . ```  
   
-After type in your shell console  
-```code 
-docker run -it --name todo --link db:todo -p 5000:5000 todo-sql
-```
+
 
 # Test
 Bring up your favorite browser   
