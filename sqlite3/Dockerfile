@@ -55,6 +55,6 @@ RUN set -ex \
 
 VOLUME ["/opt/sqlite"]
 
-CMD ["/bin/bash"]
+CMD ["/bin/ash"]
 
 

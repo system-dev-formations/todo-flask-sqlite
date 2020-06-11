@@ -1,8 +1,14 @@
-FROM ubuntu
+FROM alpine:3.11
+ENV LANG en_US.utf8
 
-RUN apt-get update
-RUN apt-get -y install python3 python3-pip vim iputils-ping python3-mysqldb
 
+RUN set -ex \
+ \
+ && apk add --no-cache --virtual .fetch-deps \
+    python3 \
+    python3-pip \
+ && pip3 install --no-cache-dir --upgrade pip
+ 
 ADD templates /opt/templates
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt

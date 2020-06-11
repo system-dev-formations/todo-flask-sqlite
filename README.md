@@ -1,6 +1,34 @@
 # Todo-flask-mysql
 Example on how to set up a multi-containers platform using Python-Flask and Sqlite database
 
+Type   
+```shell script
+git clone https://github.com/<my_repo>/todo-flask-sqlite
+```
+
+## Build sqlite3 alpine image
+```shell script
+  cd todo-flask-sqlite
+  cd sqlite3
+  docker build -t sqlite3 . 
+```
+
+## Create a shared volume 
+```shell script
+  docker volume create sqlite_dir
+```
+## Launch the docker sqlite3 container
+```shell script
+  docker run -d --name db -v sqlite_dir:/opt/sqlite sqlite3  
+```
+
+## Launch the container application 
+docker run -d  --name todo --link db:sqlite \
+ 
+
+
+
+
 ## How to set up the environment platform
 Start a Sqlite database container   
 ```shell script
