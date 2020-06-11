@@ -10,7 +10,7 @@ RUN set -ex \
 
 ADD templates /opt/templates
 COPY requirements.txt .
-RUN pip3 install -r requirements.txt &&
+RUN pip3 install -r requirements.txt && \
     mkdir -p /opt/data
 
 COPY todo.py /opt
