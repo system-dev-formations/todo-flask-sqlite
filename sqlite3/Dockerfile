@@ -49,8 +49,8 @@ RUN set -ex \
     \
   && cd /usr/src/sqlite3/sqlite-amalgamation-3320200 \
   && gcc shell.c sqlite3.c -lpthread -ldl \
-  && mkdir -p /opt/sqlite
-  && mv a.out /opt/sqlite/sqlite3
+  && mkdir -p /opt/sqlite \
+  && mv a.out /opt/sqlite/sqlite3 \
   && apk del .fetch-deps .build-deps
 
 VOLUME ["/opt/sqlite"]
