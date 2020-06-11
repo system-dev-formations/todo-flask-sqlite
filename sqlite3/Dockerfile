@@ -10,7 +10,7 @@ RUN set -ex \
  && apk add --no-cache --virtual .fetch-deps \
     bash \
     tar \
-    unzip
+    unzip \
     wget \
  \
  && wget -O sqlite3.zip https://www.sqlite.org/2020/sqlite-amalgamation-3320200.zip \
@@ -47,8 +47,10 @@ RUN set -ex \
  	zlib-dev \
  	icu-dev \
     \
-  && cd /usr/src/sqlite3 \
+  && cd /usr/src/sqlite3/sqlite-amalgamation-3320200 \
   && gcc shell.c sqlite3.c -lpthread -ldl \
+  && mkdir -p /opt/sqlite
+  && mv a.out /opt/sqlite//sqlite3
   && apk del .fetch-deps .build-deps
 
 
