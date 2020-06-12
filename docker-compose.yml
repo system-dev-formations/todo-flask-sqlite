@@ -17,6 +17,9 @@ services:
         - mysqlite:sqlite
       depends_on:
         - mysqlite
+      volumes:
+        - sqlite_dir:/opt/sqlite
+        - /opt/data:/opt/data
       networks:
         -  lan_network
 

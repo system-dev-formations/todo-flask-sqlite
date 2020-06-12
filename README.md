@@ -21,7 +21,7 @@ git clone https://github.com/<my_repo>/todo-flask-sqlite
 ```shell script
   docker run -d --name db -v sqlite_dir:/opt/sqlite sqlite3 tail -f /dev/null 
 ```
-
+## Build this application 
 Go back to the project directory  
 ```cd ~/todo-flask-sqlite ```  
 Build todo-sql image  
@@ -31,27 +31,23 @@ docker build -t todo-sql .
 ```
 
 ## Launch the container application 
-docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/data:/opt/data todo-sql
+docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/data:/opt/data \
+  -p 5000:5000 todo-sql
 
- 
-## How to set up the database file
-``` 
- 
-
-```   
-
-Launch a PhpMyAdmin container connected to MySQL database
+## Copy the SQL script and load the database file
 ```shell script
-docker run -d  --name phpmyadmin --link db:mysql \
- -e MYSQL_USERNAME=root -p 8181:80 nazarpc/phpmyadmin
+  cd  ~/todo-flask-sqlite
+  sudo cp sql/todos.sql /opt/data
+  docker exec -it todo /bin/ash
+  cd /opt/data 
+  /opt/sqlite/sqlite3 tododb.db < todos.sql  
 ```
-Get this repository  
-```git clone https://github.com/system-dev-formations/todo-flask-mysql.git```  
-Build todo-sql image  
-```cd todo-flask-mysql```  
-```docker build -t todo-sql . ```  
-  
-
+This application doesn't work on events so you need to start the container for the changes take effect.   
+```shell script
+  docker rm -f todo 
+  docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/data:/opt/data \
+    -p 5000:5000 todo-sql
+```
 
 # Test
 Bring up your favorite browser   
