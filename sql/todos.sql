@@ -1,6 +1,6 @@
 CREATE TABLE todos
 (
-    todo_id     INT PRIMARY KEY AUTOINCREMENT ,
+    todo_id     INTEGER PRIMARY KEY AUTOINCREMENT ,
     title       TEXT            NOT NULL,
     text        TEXT            NOT NULL,
     done        CHAR(50),
