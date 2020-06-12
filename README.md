@@ -22,8 +22,8 @@ git clone https://github.com/<my_repo>/todo-flask-sqlite
   docker run -d --name db -v sqlite_dir:/opt/sqlite sqlite3 tail -f /dev/null 
 ```
 
-Get this repository  
-```git clone https://github.com/system-dev-formations/todo-flask-mysql.git```  
+Go back to the project directory  
+```cd ~/todo-flask-sqlite ```  
 Build todo-sql image  
 ```shell script
 cd todo-flask-sqlite  

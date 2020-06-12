@@ -1,10 +1,10 @@
-CREATE TABLE TODOS
+CREATE TABLE todos
 (
-    TODO_ID     INT PRIMARY KEY NOT NULL,
-    TITLE       TEXT            NOT NULL,
-    TEXT        TEXT            NOT NULL,
-    DONE        CHAR(50),
-    PUB_DATE    DATETIME        NOT NULL
+    todo_id     INT PRIMARY KEY NOT NULL,
+    title       TEXT            NOT NULL,
+    text        TEXT            NOT NULL,
+    done        CHAR(50),
+    pub_date    TEXT           NOT NULL
 );
 
 INSERT INTO `todos` (`todo_id`, `title`, `text`, `done`, `pub_date`) VALUES
