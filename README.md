@@ -32,7 +32,7 @@ docker build -t todo-sql .
 
 ## Launch the container application 
 docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/data:/opt/data \
-  -p 5000:5000 todo-sql
+  -p 25000:5000 todo-sql
 
 ## Copy the SQL script and load the database file
 ```shell script
@@ -41,6 +41,9 @@ docker run -d  --name todo --link db:sqlite -v sqlite_dir:/opt/sqlite -v /opt/da
   docker exec -it todo /bin/ash
   cd /opt/data 
   /opt/sqlite/sqlite3 tododb.db < todos.sql  
+  /opt/sqlite/sqlite3 tododb.db 
+ .tables
+ 
 ```
 This application doesn't work on events so you need to start the container for the changes take effect.   
 ```shell script
@@ -79,10 +82,20 @@ source venv/bin/activate
 pip3 install docker-compose
 pip3 install --upgrade pip
 ```
+
+#- NOTE pour Ubuntu 16.04 ----
+```shell
+rm -Rf venv
+python3 -m venv venv
+pip install --upgrade "pip < 21.0"
+pip3 install docker-compose
+```
+
 ## Execute
-In the directory todo-flask-mysql, hit   
-```docker-compose up ```  
-or  
-```docker-compose up -d```
-
-
+In the directory todo-flask-mysql, hit
+```shell
+docker rm -f todo db
+docker rmi -f todo-sql sqlite3
+docker-compose build
+docker-compose up -d   
+```

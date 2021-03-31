@@ -7,6 +7,9 @@ RUN set -ex \
     python3 \
     python3-dev \
     curl \
+    gcc \
+    libc-dev \
+    build-base \
  && pip3 install --no-cache-dir --upgrade pip
 
 ADD templates /opt/templates
@@ -21,4 +24,9 @@ COPY sql/todos.sql /opt/data
 VOLUME /opt/data
 
 ENTRYPOINT FLASK_APP=/opt/todo.py flask run --host=0.0.0.0
+
+
+
+
+
 
