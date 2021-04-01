@@ -12,11 +12,11 @@ RUN set -ex \
     tar \
     unzip \
     wget \
+    readline \
  \
- && wget -O sqlite3.zip https://www.sqlite.org/2020/sqlite-amalgamation-3320200.zip \
- && echo "$SHA1 *sqlite3.zip" | sha1sum -c - \
- && mkdir -p /usr/src/sqlite3 \
- && unzip sqlite3.zip  -d /usr/src/sqlite3 \
+ && wget https://www.sqlite.org/2021/sqlite-autoconf-3350300.tar.gz \
+ && tar -zxvf sqlite-autoconf-3350300.tar.gz \
+ && cd sqlite-autoconf-3350300 \
  \
  && apk add --no-cache --virtual .build-deps \
     cmake clang clang-dev \
@@ -48,15 +48,11 @@ RUN set -ex \
  	icu-dev \
  	readline-dev \
     \
-  && cd /usr/src/sqlite3/sqlite-amalgamation-3320200 \
-  && gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_FTS4 \
-                 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 \
-                 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_EXPLAIN_COMMENTS \
-                 -DHAVE_USLEEP -DHAVE_READLINE \
-     shell.c sqlite3.c -lpthread -ldl -lreadline -lncurses -o sqlite3 \
+  && ./configure --enable-static \
+  && make \
   && mkdir -p /opt/sqlite \
   && mv sqlite3 /opt/sqlite/ \
-  && apk del .fetch-deps .build-deps
+  && apk del  .build-deps
 
 VOLUME ["/opt/sqlite"]
 
